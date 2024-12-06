@@ -1,16 +1,8 @@
-import React, { useState } from "react";
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  FormHelperText,
-  Button,
-  Typography,
-  Paper,
-} from "@mui/material";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { TextField, Button, Paper, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-// Estilos personalizados
 const useStyles = makeStyles(() => ({
   root: {
     height: "100vh",
@@ -34,10 +26,10 @@ const useStyles = makeStyles(() => ({
     marginBottom: "16px",
   },
   button: {
-    backgroundColor: "#2575fc",
+    backgroundColor: "#ff7e5f",
     color: "white",
     "&:hover": {
-      backgroundColor: "#6a11cb",
+      backgroundColor: "#4a90e2",
     },
   },
   title: {
@@ -48,41 +40,37 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Login = () => {
-  const [login, setLogin] = useState("");
-  const [error, setError] = useState("");
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (!login) {
-      setError("Por favor, insira seu login!");
-    } else {
-      setError("");
-      alert("Login realizado com sucesso!");
-    }
+    navigate("/listar-tarefa");
   };
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <Typography variant="h5" className={classes.title}>
-          Bem-vindo
+          Login
         </Typography>
-
-        <FormControl fullWidth className={classes.formControl} error={!!error}>
-          <InputLabel htmlFor="login_nome">Login</InputLabel>
-          <Input
-            id="login_nome"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-          />
-          {error && <FormHelperText>{error}</FormHelperText>}
-        </FormControl>
-
-        <Button
-          variant="contained"
+        <TextField
+          className={classes.formControl}
+          label="Usuário"
+          variant="outlined"
           fullWidth
+        />
+        <TextField
+          className={classes.formControl}
+          label="Senha"
+          type="password"
+          variant="outlined"
+          fullWidth
+        />
+        <Button
           className={classes.button}
+          variant="contained"
           onClick={handleLogin}
+          fullWidth
         >
           Entrar
         </Button>
